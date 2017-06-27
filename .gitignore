@@ -21,3 +21,6 @@ erl_crash.dump
 
 # cus mac
 .DS_Store
+
+#cus vscode
+.vscode/*

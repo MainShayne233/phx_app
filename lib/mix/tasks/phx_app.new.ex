@@ -27,7 +27,9 @@ defmodule Mix.Tasks.PhxApp.New do
 
   def run([app_name | args]) do
     create_phoenix_app(app_name, args)
-    PhxApp.Frontend.setup(args)
+    File.cd(app_name)
+    PhxApp.Frontend.setup(args, app_name)
+    File.cd("..")
   end
 
 
