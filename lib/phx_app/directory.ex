@@ -31,6 +31,22 @@ defmodule PhxApp.Directory do
   end
 
 
+  def assets_digest_template do
+    phx_app_dir() <> "/priv/tasks/assets.digest.ex"
+  end
+
+
+  def mix_tasks_dir do
+    unless File.dir?("./lib/mix/tasks"), do: Mix.Shell.IO.cmd("mkdir -p ./lib/mix/tasks")
+    "./lib/mix/tasks"
+  end
+
+
+  def app_assets_digest do
+    mix_tasks_dir() <> "/assets.digest.ex"
+  end
+
+
   def app_html(args, app_name) do
     args
     |> PhxApp.Version.for

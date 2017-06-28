@@ -29,17 +29,21 @@ defmodule Mix.Tasks.PhxApp.New do
     create_phoenix_app(app_name, args)
     File.cd(app_name)
     PhxApp.Frontend.run([args, app_name])
+    add_mix_tasks()
     File.cd("..")
     """
+
     All done!
 
     To start your app:
-    cd #{app_name}
-    #{ecto_message(args)}
-    #{start_command(args)}
+    cd #{app_name} #{ecto_message(args)}
+    #{start_command(args)} # start the server
+    OR
+    iex -S #{start_command(args)} # start the server with an interactive shell
     
     Then your app should be running at http://localhost:4000
     """
+    |> Mix.Shell.IO.info
   end
 
 
@@ -56,10 +60,9 @@ defmodule Mix.Tasks.PhxApp.New do
     args
     |> PhxApp.Version.for
     |> case do
-      1.2 -> "\nmix phoenix.server"
-      1.3 -> "\nmix phx.server"
+      1.2 -> "mix phoenix.server"
+      1.3 -> "mix phx.server"
     end
-    |> Kernel.<>(" # start the server")
   end
 
 
@@ -69,6 +72,13 @@ defmodule Mix.Tasks.PhxApp.New do
     "echo y | mix #{gen_cmd} #{app_name} #{args |> phoenix_args_for |> Enum.join(" ")}"
     |> Mix.Shell.IO.cmd
     Mix.Shell.IO.info([:cyan, "PSYCH! We still have some more to do."])
+  end
+
+
+  defp add_mix_tasks do
+    Mix.Shell.IO.info([:green, "Create lib/mix/tasks/assets.digest.ex"])
+    PhxApp.Directory.app_assets_digest()
+    |> File.write!( PhxApp.Directory.assets_digest_template() |> File.read! )
   end
 
 
