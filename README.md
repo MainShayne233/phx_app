@@ -5,7 +5,7 @@ Generator for [Phoenix](https://github.com/phoenixframework/phoenix) apps that u
 [![Build Status](https://travis-ci.org/MainShayne233/phx_app.svg?branch=master)](https://travis-ci.org/MainShayne233/phx_app)
 
 ## Note
-Those this generator does have some Phoenix 1.2 support, it has been optimized/developed mostly for [Phoenix 1.3](https://gist.github.com/chrismccord/71ab10d433c98b714b75c886eff17357), which has a very different directory structure, and use `phx` instead of `phoenix` for mix tasks.
+Though this generator does have some Phoenix 1.2 support, it has been optimized/developed mostly for [Phoenix 1.3](https://gist.github.com/chrismccord/71ab10d433c98b714b75c886eff17357), which has a very different directory structure, and use `phx` instead of `phoenix` for mix tasks.
 
 ## Usage
 ```bash
@@ -28,3 +28,6 @@ Standard Phoenix Options:
 Frontend Options:
   - `--react` For [React.js](https://facebook.github.io/react/) (Default)
   - `--elm` For [Elm](http://elm-lang.org/)
+  
+Other options:
+  - `--1.2` Use the Phoenix 1.2 generator, `mix phoenix.new` (as stated above, 1.2 support is underdeveloped)
