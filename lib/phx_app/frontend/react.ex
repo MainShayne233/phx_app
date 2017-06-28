@@ -9,6 +9,9 @@ defmodule PhxApp.Frontend.React do
       assets_dir
     )
 
+    "mv #{assets_dir}/dot_babelrc #{assets_dir}/.babelrc"
+    |> Mix.Shell.IO.cmd
+
     cwd = File.cwd!
     File.cd(assets_dir)
     Mix.Shell.IO.info([:cyan, "Running npm i"])
