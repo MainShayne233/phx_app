@@ -11,7 +11,7 @@ Though this generator does have some Phoenix 1.2 support, it has been optimized/
 ```bash
 mix archive.install github MainShayne233/phx_app # install on your machine
 
-mix phx_app.new app_name --elm --no-ecto # create your app_name
+mix phx_app.new app_name # create your app_name, using option flags if desired
 
 cd app_name
 mix phx.server
