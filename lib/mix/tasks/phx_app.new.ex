@@ -28,8 +28,33 @@ defmodule Mix.Tasks.PhxApp.New do
   def run([app_name | args]) do
     create_phoenix_app(app_name, args)
     File.cd(app_name)
-    PhxApp.Frontend.setup(args, app_name)
+    PhxApp.Frontend.run([args, app_name])
     File.cd("..")
+    """
+    All done!
+
+    To start your app:
+    cd #{app_name}
+    #{ecto_message(args)}
+    #{start_command(args)}
+    
+    Then your app should be running at http://localhost:4000
+    """
+  end
+
+
+  defp ecto_messsage(args) when "--no-ecto" in args, do: nil
+  defp ecto_messsage(_args), do: "\nmix ecto.create # create your database"
+
+
+  def start_command(args) do
+    args
+    |> PhxApp.Version.for
+    |> case do
+      1.2 -> "\nmix phoenix.server"
+      1.3 -> "\nmix phx.server"
+    end
+    |> Kernel.<>(" # start the server")
   end
 
 

@@ -1,7 +1,7 @@
 defmodule PhxApp.Frontend.React do
   use Mix.Task
 
-  def run([args, assets_dir]) do
+  def run([_args, assets_dir]) do
     Mix.Shell.IO.info([:cyan, "Setting up React stuff"])
     Mix.Shell.IO.info([:green, "Adding React stuff to #{assets_dir}"])
     PhxApp.File.copy_directory(

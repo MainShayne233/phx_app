@@ -1,5 +1,5 @@
 defmodule PhxApp.Frontend do
-  use Mix.Task.
+  use Mix.Task
 
   @frontend_modules [
     {"--react", PhxApp.Frontend.React},
@@ -46,7 +46,7 @@ defmodule PhxApp.Frontend do
 
 
   defp setup_dev_config do
-    Mix.Shell.IO.info([:green, "Altering dev.exs"``])
+    Mix.Shell.IO.info([:green, "Altering dev.exs"])
     dev_config_path = PhxApp.Directory.dev_config()
     updated_dev_config =
       dev_config_path
