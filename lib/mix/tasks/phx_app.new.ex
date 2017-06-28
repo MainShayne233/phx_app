@@ -43,7 +43,7 @@ defmodule Mix.Tasks.PhxApp.New do
   end
 
 
-  defp ecto_messsage(args) do
+  defp ecto_message(args) do
     if "--no-ecto" in args do
       nil
     else
