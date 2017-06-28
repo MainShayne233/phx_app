@@ -8,7 +8,7 @@ defmodule SetupTest do
     File.cd!("..")
     :os.cmd('rm -rf #{@app_name}')
     :os.cmd('mix archive.install github MainShayne233/phx_app --force')
-    :os.cmd('mix phx_app.new #{@app_name} --no-ecto')
+    :os.cmd('mix phx_app.new #{@app_name} --no-ecto') |> IO.inspect
     File.cd!(@app_name)
     start_server()
     :timer.sleep(10000)
