@@ -13,7 +13,7 @@ mix archive.install github MainShayne233/phx_app # install on your machine
 
 mix phx_app.new app_name # create your app_name, using option flags if desired
 
-cd app_name # entire the app directory
+cd app_name # enter the app directory
 
 mix phx.server # start the phoenix server
 ```
