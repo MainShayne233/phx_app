@@ -43,8 +43,13 @@ defmodule Mix.Tasks.PhxApp.New do
   end
 
 
-  defp ecto_messsage(args) when "--no-ecto" in args, do: nil
-  defp ecto_messsage(_args), do: "\nmix ecto.create # create your database"
+  defp ecto_messsage(args) do
+    if "--no-ecto" in args do
+      nil
+    else
+      "\nmix ecto.create # create your database"
+    end
+  end
 
 
   def start_command(args) do
