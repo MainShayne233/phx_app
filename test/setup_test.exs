@@ -20,7 +20,6 @@ defmodule SetupTest do
   defp start_server do
     spawn fn ->
       :os.cmd('mix phx.server')
-      |> IO.inspect
     end
   end
 
