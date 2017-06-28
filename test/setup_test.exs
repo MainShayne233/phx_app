@@ -16,7 +16,7 @@ defmodule SetupTest do
     start_server()
     :timer.sleep(10000)
     {page, 0} = System.cmd("curl", ["localhost:4000"])
-    assert page |> String.contains?("Hello TestApp")
+    assert page |> String.contains?("TestApp")
     kill_server()
   end
 
