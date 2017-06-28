@@ -2,6 +2,8 @@
 
 Generator for [Phoenix](https://github.com/phoenixframework/phoenix) apps that use React, Elm, Postgres, no Postgres, etc.
 
+[![Build Status](https://travis-ci.org/MainShayne233/phx_app.svg?branch=master)](https://travis-ci.org/MainShayne233/phx_app)
+
 ## Note
 Those this generator does have some Phoenix 1.2 support, it has been optimized/developed mostly for [Phoenix 1.3](https://gist.github.com/chrismccord/71ab10d433c98b714b75c886eff17357), which has a very different directory structure, and use `phx` instead of `phoenix` for mix tasks.
 
