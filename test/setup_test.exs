@@ -7,22 +7,20 @@ defmodule SetupTest do
   test "should be able to setup app with default config with no issue" do
     File.cd!("..")
     :os.cmd('rm -rf #{@app_name}')
-    |> IO.inspect
     :os.cmd('mix archive.install github MainShayne233/phx_app --force')
-    |> IO.inspect
     :os.cmd('mix phx_app.new #{@app_name} --no-ecto')
-    |> IO.inspect
     File.cd!(@app_name)
     start_server()
     :timer.sleep(10000)
     {page, 0} = System.cmd("curl", ["localhost:4000"])
-    assert page |> String.contains?("TestApp")
     kill_server()
+    assert page |> String.contains?("TestApp")
   end
 
   defp start_server do
     spawn fn ->
       :os.cmd('mix phx.server')
+      |> IO.inspect
     end
   end
 
