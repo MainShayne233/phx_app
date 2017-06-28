@@ -1,9 +1,20 @@
 defmodule PhxApp.Frontend.Elm do
+  use Mix.Task
 
 
-  def setup(_args, assets_dir) do
+  def run([_args, assets_dir]) do
+    Mix.Shell.IO.info([:cyan, "Setting up Elm stuff"])
     copy_assets(assets_dir)
     install_dependencies(assets_dir)
+  end
+
+
+  defp copy_assets(assets_dir) do
+    Mix.Shell.IO.info([:green, "Adding Elm stuff to #{assets_dir}"])
+    PhxApp.File.copy_directory(
+      PhxApp.Directory.elm_assets(),
+      assets_dir
+    )
   end
 
 
@@ -21,17 +32,11 @@ defmodule PhxApp.Frontend.Elm do
       _other ->
         cwd = File.cwd!
         File.cd(assets_dir)
-        Mix.Shell.IO.cmd("npm i")
+        Mix.Shell.IO.info([:cyan, "Running elm package install -y"])
         Mix.Shell.IO.cmd("elm package install -y")
+        Mix.Shell.IO.info([:cyan, "Running npm i"])
+        Mix.Shell.IO.cmd("npm i")
         File.cd(cwd)
     end
-  end
-
-
-  defp copy_assets(assets_dir) do
-    PhxApp.File.copy_directory(
-      PhxApp.Directory.elm_assets(),
-      assets_dir
-    )
   end
 end
