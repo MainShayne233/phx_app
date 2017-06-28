@@ -3,7 +3,6 @@ defmodule Mix.Tasks.PhxApp.New do
 
   @phoenix_args [
     "--no-ecto",
-    "--no-html",
     "--umbrella",
     "--module",
   ]
