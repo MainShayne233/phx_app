@@ -17,13 +17,13 @@ defmodule PhxApp.Frontend.React do
     Mix.Shell.IO.info([:cyan, "Running npm i"])
     Mix.Shell.IO.cmd("npm i")
     File.cd(cwd)
-    add_elm_gitignores()
+    add_gitignores()
   end
 
 
   def add_gitignores do
     [
-      "assets/node_modules"
+      "assets/node_modules",
     ]
     |> Enum.each(fn path ->
       Mix.Shell.IO.cmd("echo '#{path}' >> .gitignore")

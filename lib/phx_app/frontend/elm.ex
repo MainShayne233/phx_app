@@ -6,7 +6,7 @@ defmodule PhxApp.Frontend.Elm do
     Mix.Shell.IO.info([:cyan, "Setting up Elm stuff"])
     copy_assets(assets_dir)
     install_dependencies(assets_dir)
-    add_elm_gitignores()
+    add_gitignores()
   end
 
 
@@ -44,8 +44,8 @@ defmodule PhxApp.Frontend.Elm do
 
   def add_gitignores do
     [
-      "assets/elm-stuff"
-      "assets/node_modules"
+      "assets/elm-stuff",
+      "assets/node_modules",
     ]
     |> Enum.each(fn path ->
       Mix.Shell.IO.cmd("echo '#{path}' >> .gitignore")
