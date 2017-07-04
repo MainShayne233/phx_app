@@ -23,10 +23,10 @@ defmodule PhxApp.Frontend.Elm do
     case System.cmd("which", ["elm"]) do
       {"", 1} ->
         Mix.Shell.IO.info([
-          :red, 
+          :red,
           """
-          Looks like you don't have Elm installed. 
-          You're going to need that. 
+          Looks like you don't have Elm installed.
+          You're going to need that.
           Checkout elm-lang.org
           """
         ])
@@ -42,9 +42,10 @@ defmodule PhxApp.Frontend.Elm do
   end
 
 
-  def add_elm_gitignores do
+  def add_gitignores do
     [
       "assets/elm-stuff"
+      "assets/node_modules"
     ]
     |> Enum.each(fn path ->
       Mix.Shell.IO.cmd("echo '#{path}' >> .gitignore")
