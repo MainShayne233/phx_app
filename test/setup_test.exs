@@ -9,7 +9,7 @@ defmodule SetupTest do
     :os.cmd('rm -rf #{@app_name}')
     :os.cmd('mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez --force')
     :os.cmd('mix archive.install github MainShayne233/phx_app --force')
-    :os.cmd('mix phx_app.new #{@app_name} --no-ecto') |> IO.inspect
+    :os.cmd('mix phx_app.new #{@app_name} --no-ecto --elm') |> IO.inspect
     File.cd!(@app_name)
     start_server()
     :timer.sleep(10000)
@@ -30,7 +30,7 @@ defmodule SetupTest do
     |> elem(0)
     |> String.split("\n")
     |> Enum.filter(&( &1 |> String.contains?("mix phoenix.server") ))
-    |> Enum.each(fn process -> 
+    |> Enum.each(fn process ->
       pid = process
       |> String.split(" ")
       |> Enum.reject(&( &1 == "" ))
