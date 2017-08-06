@@ -23,7 +23,6 @@ defmodule Mix.Tasks.PhxApp.New do
     |> Mix.shell.info
   end
 
-
   def run([app_name | args]) do
     create_phoenix_app(app_name, args)
     File.cd(app_name)
@@ -36,15 +35,14 @@ defmodule Mix.Tasks.PhxApp.New do
 
     To start your app:
     cd #{app_name} #{ecto_message(args)}
-    #{start_command(args)} # start the server
+    #{start_command()} # start the server
     OR
-    iex -S #{start_command(args)} # start the server with an interactive shell
-    
+    iex -S #{start_command()} # start the server with an interactive shell
+
     Then your app should be running at http://localhost:4000
     """
     |> Mix.Shell.IO.info
   end
-
 
   defp ecto_message(args) do
     if "--no-ecto" in args do
@@ -54,25 +52,17 @@ defmodule Mix.Tasks.PhxApp.New do
     end
   end
 
-
-  def start_command(args) do
-    args
-    |> PhxApp.Version.for
-    |> case do
-      1.2 -> "mix phoenix.server"
-      1.3 -> "mix phx.server"
-    end
+  def start_command do
+    "mix phx.server"
   end
 
-
   defp create_phoenix_app(app_name, args) do
-    gen_cmd = phoenix_generator_cmd(args)
+    gen_cmd = phoenix_generator_cmd()
     Mix.Shell.IO.info([:cyan, "Running normal #{gen_cmd} command."])
     "echo y | mix #{gen_cmd} #{app_name} #{args |> phoenix_args_for |> Enum.join(" ")}"
     |> Mix.Shell.IO.cmd
     Mix.Shell.IO.info([:cyan, "PSYCH! We still have some more to do."])
   end
-
 
   defp add_mix_tasks do
     Mix.Shell.IO.info([:green, "Create lib/mix/tasks/assets.digest.ex"])
@@ -80,23 +70,15 @@ defmodule Mix.Tasks.PhxApp.New do
     |> File.write!( PhxApp.Directory.assets_digest_template() |> File.read! )
   end
 
-
-  defp phoenix_generator_cmd(args) do
-    args
-    |> PhxApp.Version.for
-    |> case do
-      1.2 -> "phoenix.new"
-      1.3 -> "phx.new"
-    end
+  defp phoenix_generator_cmd do
+    "phx.new"
   end
-
 
   defp phoenix_args_for(args) do
     args
     |> Enum.filter(&( &1 in @phoenix_args ))
     |> Enum.concat(["--no-brunch"])
   end
-
 
   def default_args do
     [

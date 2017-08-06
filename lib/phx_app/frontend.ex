@@ -8,23 +8,21 @@ defmodule PhxApp.Frontend do
 
   @default_frontend_module PhxApp.Frontend.React
 
-
   def run([args, app_name]) do
     Mix.Shell.IO.info([:cyan, "Setting up frontend."])
-    create_app_html(args, app_name)
-    create_index_html(args, app_name)
+    create_app_html(app_name)
+    create_index_html(app_name)
     setup_dev_config()
-    assets_dir = PhxApp.Directory.app_assets(args)
+    assets_dir = PhxApp.Directory.app_assets()
     args
     |> frontend_module
     |> apply(:run, [[args, assets_dir]])
-    copy_shared_assets(args, assets_dir)
+    copy_shared_assets(assets_dir)
   end
 
-
-  defp create_app_html(args, app_name) do
+  defp create_app_html(app_name) do
     Mix.Shell.IO.info([:green, "Creating app.html.eex"])
-    app_html = 
+    app_html =
       PhxApp.Directory.app_html_template()
       |> EEx.eval_file(
         assigns: [
@@ -33,17 +31,15 @@ defmodule PhxApp.Frontend do
           assets_script_conditional: assets_script_conditional()
         ]
       )
-    File.write!(PhxApp.Directory.app_html(args, app_name), app_html)
+    File.write!(PhxApp.Directory.app_html(app_name), app_html)
   end
 
-
-  defp create_index_html(args, app_name) do
+  defp create_index_html(app_name) do
     Mix.Shell.IO.info([:green, "Creating index.html.eex"])
-    args
-    |> PhxApp.Directory.index_html(app_name)
+    app_name
+    |> PhxApp.Directory.index_html
     |> File.write("<div id=\"root\"></div>")
   end
-
 
   defp setup_dev_config do
     Mix.Shell.IO.info([:green, "Altering dev.exs"])
@@ -57,8 +53,7 @@ defmodule PhxApp.Frontend do
     File.write!(dev_config_path, updated_dev_config)
   end
 
-
-  defp copy_shared_assets(args, assets_dir) do
+  defp copy_shared_assets(assets_dir) do
     Mix.Shell.IO.info([:green, "Copy shared assets into #{assets_dir}"])
     PhxApp.File.copy_directory(
       PhxApp.Directory.shared_css(),
@@ -66,10 +61,9 @@ defmodule PhxApp.Frontend do
     )
     PhxApp.File.copy_directory(
       PhxApp.Directory.shared_static(),
-      PhxApp.Directory.static_directory(args)
+      PhxApp.Directory.static_directory()
     )
   end
-
 
   defp watchers do
    """
@@ -82,21 +76,19 @@ defmodule PhxApp.Frontend do
    """
   end
 
-
   def assets_script_conditional do
-    [first_line | rest] = 
+    [first_line | rest] =
       PhxApp.Directory.assets_script()
       |> File.read!
       |> String.split("\n")
 
-    adjusted_lines = 
+    adjusted_lines =
       rest
       |> Enum.map(&( "    " <> &1 ))
       |> Enum.join("\n")
 
     first_line <> "\n" <> adjusted_lines
   end
-
 
   defp frontend_module(args) do
     @frontend_modules

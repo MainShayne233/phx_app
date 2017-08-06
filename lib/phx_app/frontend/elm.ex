@@ -1,14 +1,12 @@
 defmodule PhxApp.Frontend.Elm do
   use Mix.Task
 
-
   def run([_args, assets_dir]) do
     Mix.Shell.IO.info([:cyan, "Setting up Elm stuff"])
     copy_assets(assets_dir)
     install_dependencies(assets_dir)
     add_gitignores()
   end
-
 
   defp copy_assets(assets_dir) do
     Mix.Shell.IO.info([:green, "Adding Elm stuff to #{assets_dir}"])
@@ -17,7 +15,6 @@ defmodule PhxApp.Frontend.Elm do
       assets_dir
     )
   end
-
 
   defp install_dependencies(assets_dir) do
     case System.cmd("which", ["elm"]) do
@@ -40,7 +37,6 @@ defmodule PhxApp.Frontend.Elm do
         File.cd(cwd)
     end
   end
-
 
   def add_gitignores do
     [
