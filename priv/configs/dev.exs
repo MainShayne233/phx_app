@@ -16,8 +16,8 @@ config :<%= @app_name %>, UltimatePhoenixBoilerplate.Web.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/<%= @app_name %>/web/views/.*(ex)$},
-      ~r{lib/<%= @app_name %>/web/templates/.*(eex)$}
+      ~r{lib/<%= @app_name %>_web/views/.*(ex)$},
+      ~r{lib/<%= @app_name %>_web/templates/.*(eex)$}
     ]
   ]
 
@@ -34,5 +34,5 @@ config :<%= @app_name %>, UltimatePhoenixBoilerplate.Repo,
   pool_size: 10
 
 
-  
+
 import_config "setup.exs"
